@@ -40,7 +40,7 @@ public class CurrencyConvertorImpl implements CurrencyConvertor {
             validateArgumentsForConvert(sourceCurrency, targetCurrency, sourceAmount);
             result = exchangeRateTable.getExchangeRate(sourceCurrency, targetCurrency).multiply(sourceAmount).setScale(2, RoundingMode.HALF_EVEN);
         } catch (ExternalServiceFailureException ex){
-            throw new IllegalArgumentException("External error occuried");
+            throw new UnknownExchangeRateException( "Cannot find exchange rate", ex);
         }
         return result;
     }
