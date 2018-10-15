@@ -35,7 +35,8 @@
 
     <modules>
         <module>eshop-api</module>
-  </modules>
+        <module>eshop-persistence</module>
+    </modules>
 
     <dependencies>
    </dependencies>
