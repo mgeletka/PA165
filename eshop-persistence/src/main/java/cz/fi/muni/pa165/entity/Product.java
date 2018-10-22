@@ -6,21 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import cz.fi.muni.pa165.dto.Color;
@@ -41,6 +27,7 @@ public class Product {
 	private String imageMimeType;
 	
 
+	@NotNull
 	private String name;
 	
 	/*
@@ -62,6 +49,9 @@ public class Product {
 	@Enumerated
 	private Color color;
 
+	@ManyToMany(mappedBy = "products")
+	private Set<Category> categories = new HashSet<>();
+
 	
 	public void setId(Long id){
 		this.id = id;
@@ -74,24 +64,25 @@ public class Product {
 	 * with TASK 02 you should delete this empty method
 	 * @param kitchen
 	 */
-	public void addCategory(Category kitchen) {	
-	}
-	public List<Product> getCategories() {
-		return null;
-	}
-	//TODO after you are done with task02 you can uncomment this methods
-//	public void removeCategory(Category category)	{
-//		this.categories.remove(category);
+//	public void addCategory(Category kitchen) {
 //	}
-//	
-//	public void addCategory(Category c) {
-//		categories.add(c);
-//		c.addProduct(this);
+//	public List<Product> getCategories() {
+//		return null;
 //	}
 //
-//	public Set<Category> getCategories() {
-//		return Collections.unmodifiableSet(categories);
-//	}
+	//TODO after you are done with task02 you can uncomment this methods
+	public void removeCategory(Category category)	{
+		this.categories.remove(category);
+	}
+
+	public void addCategory(Category c) {
+		categories.add(c);
+		c.addProduct(this);
+	}
+
+	public Set<Category> getCategories() {
+		return Collections.unmodifiableSet(categories);
+	}
 	
 
 
